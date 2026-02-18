@@ -1,0 +1,403 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Swift Cart</title>
+    <link rel="stylesheet" href="style.css">
+    <!-- tailwind+daisyui -->
+    <link href="https://cdn.jsdelivr.net/npm/daisyui@5" rel="stylesheet" type="text/css" />
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+    <!-- font awesonme cdn -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css"
+        integrity="sha512-2SwdPD6INVrV/lHTZbO2nodKhrnDdJK9/kg2XD1r9uGqPo1cUbujc+IYdlYdEErWNu69gVcYgdxlmVmzTWnetw=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <!-- google font -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap"
+        rel="stylesheet">
+</head>
+
+<body>
+    <header class="">
+        <div class="navbar bg-base-100 shadow-sm x_padding fixed top-0 z-50">
+            <div class="navbar-start">
+                <span class="text-xl text-[#442dec] font-semibold">SwiftCart</span>
+            </div>
+            <div class="navbar-center hidden lg:flex font-semibold">
+                <ul class="menu menu-horizontal px-1 li_container space-x-2">
+                    <li><button type="button" class="cursor-pointer hover:text-[#442dec] home_link">Home</button></li>
+                    <li><button type="button" class="cursor-pointer hover:text-[#442dec] products_link">Products</button></li>
+                    <li><button type="button" class="cursor-pointer hover:text-[#442dec] about_link">About</button></li>
+                    <li><button type="button" class="cursor-pointer hover:text-[#442dec] contact_link">Contact</button></li>
+                </ul>
+            </div>
+            <div class="navbar-end">
+                <div class="relative">
+                    <span id="cart_count" class="badge badge-primary badge-xs absolute z-10 -top-2 -left-2 text-xs font-bold">0</span>
+                    <button id="cart_btn" class="btn btn-outline btn-xs cursor-pointer active:scale-90 transition-transform duration-200"><i
+                            class="fa-solid fa-cart-arrow-down text-base lg:text-lg"></i>
+                    </button>
+                    <div id="cart_container" class="absolute right-0 mt-2 w-80 p-4 border rounded shadow-lg bg-gray-50 z-50 overflow-y-auto max-h-96 text-xs hidden"></div>
+                </div>
+                <div class="dropdown">
+                    <div tabindex="0" role="button" class="btn btn-ghost lg:hidden">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24"
+                            stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M4 6h16M4 12h8m-8 6h16" />
+                        </svg>
+                    </div>
+                    <ul tabindex="-1"
+                        class="menu menu-sm dropdown-content bg-base-100 rounded-box z-1 mt-3 w-52 p-2 shadow li_container">
+                        <li><button type="button" class="home_link">Home</button></li>
+                        <li><button type="button" class="products_link">Products</button></li>
+                        <li><button type="button" class="about_link">About</button></li>
+                        <li><button type="button" class="contact_link">Contact</button></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- loading spinner -->
+    <div id="spinner" class="flex justify-center my-10">
+        <span class="loading loading-bars loading-xl"></span>
+    </div>
+    <main id="main" class="pt-[72px]">
+        <!-- home -->
+        <section id="home_section">
+            <!-- hero section -->
+            <section class=" w-full min-h-[500px] bg-cover bg-center relative x_padding flex items-center"
+                style="background-image: url('./Assets/banner-image.png');">
+                <!-- transparent div -->
+                <div class="absolute inset-0 bg-gradient-to-r from-[#191f2d] to-transparent"></div>
+                <!-- content div -->
+                <div
+                    class="relative h-full text-white flex flex-col items-start justify-start w-full sm:w-11/12 md:w-3/4 lg:w-1/2">
+                    <div class="space-y-6">
+                        <h1 class="text-2xl sm:text-3xl lg:text-4xl font-bold">Best Collection For You</h1>
+                        <p>Discover the latest trends in fashion, electronics and more. Shop with confidence and style
+                            at
+                            SwiftCart.</p>
+                        <button class="btn btn-primary">Shop now</button>
+                    </div>
+                </div>
+            </section>
+
+            <!-- why choose us section -->
+            <section class="bg-gray-100 x_padding py-20">
+                <div>
+                    <h2 class="text-center text-3xl font-bold py-2">Why Choose Us</h2>
+                    <p class="text-center text-gray-600 py-2 mb-10">
+                        We provide the best shopping experience with top-notch services.
+                    </p>
+                </div>
+                <div class="grid md:grid-cols-2 xl:grid-cols-4 gap-5">
+                    <div class="bg-white rounded-md p-5 relative">
+                        <button class="absolute -top-5 rounded-lg bg-purple-50 p-4  border-2 border-white shadow-2xl"
+                            style="box-shadow: 0 6px 12px #3b82f680;">
+                            <i class="fa-solid fa-truck text-xl text-[#442dec] "></i>
+                        </button>
+                        <h3 class="font-semibold text-xl py-2 mt-10">Fast Delivery</h3>
+                        <p class="text-gray-400 text-[14px] py-2">Get your orders delivered to your doorstep quickly and
+                            efficiently.</p>
+                    </div>
+                    <div class="bg-white rounded-md p-5 relative">
+                        <button class="absolute -top-5 rounded-lg bg-purple-50 p-4  border-2 border-white shadow-2xl"
+                            style="box-shadow: 0 6px 12px #3b82f680;">
+                            <i class="fa-solid fa-headphones text-xl text-[#442dec] "></i>
+                        </button>
+                        <h3 class="font-semibold text-xl py-2 mt-10">24/7 Support</h3>
+                        <p class="text-gray-400 text-[14px] py-2">
+                            Our support team is available around the clock to assist you.
+                        </p>
+                    </div>
+                    <div class="bg-white rounded-md p-5 relative">
+                        <button class="absolute -top-5 rounded-lg bg-purple-50 p-4  border-2 border-white shadow-2xl"
+                            style="box-shadow: 0 6px 12px #3b82f680;">
+                            <i class="fa-solid fa-user-shield text-xl text-[#442dec] "></i>
+
+                        </button>
+                        <h3 class="font-semibold text-xl py-2 mt-10">Secure payment</h3>
+                        <p class="text-gray-400 text-[14px] py-2">
+                            Experience safe and secure transactions with our encrypted payment systems.
+                        </p>
+                    </div>
+                    <div class="bg-white rounded-md p-5 relative">
+                        <button class="absolute -top-5 rounded-lg bg-purple-50 p-4  border-2 border-white shadow-2xl"
+                            style="box-shadow: 0 6px 12px #3b82f680;">
+                            <i class="fa-solid fa-arrows-rotate text-xl text-[#442dec] "></i>
+                        </button>
+                        <h3 class="font-semibold text-xl py-2 mt-10">Easy returns</h3>
+                        <p class="text-gray-400 text-[14px] py-2">
+                            Not satisfied? Return your products easily within 30 days.
+                        </p>
+                    </div>
+                </div>
+
+            </section>
+
+            <!-- trending now -->
+            <section class="x_padding my-10">
+                <h2 class="text-3xl font-bold py-3 mb-2">Trending now</h2>
+
+                <div id="trending_container" class="grid md:grid-cols-2 lg:grid-cols-3 gap-5 mb-2"></div>
+            </section>
+        </section>
+
+        <!-- products section -->
+        <section id="products_section" class="min-h-[500px] pb-10 x_padding hidden">
+            <h2 class=" py-5 md:py-8 text-center font-bold text-3xl ">Our Products</h2>
+            <div id="catagory_container" class="flex gap-5 flex-wrap justify-center text-[9px] mb-10">
+                <div id="all_products"
+                    class="btn rounded-full border-2 border-gray-300 bg-white hover:bg-[#442dec] hover:text-white text-gray-500 active2">
+                    All</div>
+                <div id="electronics_products"
+                    class="btn rounded-full border-2 border-gray-300 bg-white hover:bg-[#442dec] hover:text-white text-gray-500">
+                    Electronics</div>
+                <div
+                    class="btn rounded-full border-2 border-gray-300 bg-white hover:bg-[#442dec] hover:text-white text-gray-500">
+                    Jewelery</div>
+                <div
+                    class="btn rounded-full border-2 border-gray-300 bg-white hover:bg-[#442dec] hover:text-white text-gray-500">
+                    Men's Clothing</div>
+                <div
+                    class="btn rounded-full border-2 border-gray-300 bg-white hover:bg-[#442dec] hover:text-white text-gray-500">
+                    Women's Clothing</div>
+            </div>
+            <div id="card_container" class="grid md:grid-cols-2 xl:grid-cols-4 gap-5">
+            </div>
+        </section>
+
+        <!-- about -->
+        <section id="about_section" class="min-h-[500px] x_padding py-10 hidden">
+            <!-- title -->
+            <section class="text-center mb-12">
+                <h1 class="text-4xl font-bold mb-3">About SwiftCart</h1>
+                <p class="text-gray-500 max-w-2xl mx-auto">
+                    SwiftCart is your one-stop destination for fashion, electronics,
+                    and lifestyle products — delivered quickly and reliably.
+                </p>
+            </section>
+
+            <!-- about content -->
+            <section class="grid md:grid-cols-2 gap-10 items-center mb-16">
+
+                <!-- image -->
+                <img src="/Assets/a.png" class="rounded-lg shadow-lg w-full" alt="Shopping">
+
+                <!-- text-->
+                <div>
+                    <h2 class="text-2xl font-bold mb-4">Our Mission</h2>
+                    <p class="text-gray-600 mb-4">
+                        Our mission is to make online shopping simple, fast, and
+                        enjoyable for everyone. We carefully select high-quality
+                        products and partner with trusted suppliers to ensure
+                        customer satisfaction.
+                    </p>
+
+                    <p class="text-gray-600">
+                        Whether you're looking for the latest gadgets, trendy
+                        fashion, or everyday essentials — SwiftCart has you covered.
+                    </p>
+                </div>
+            </section>
+
+            <!-- features -->
+            <section class="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
+
+                <div class="card bg-base-100 shadow-md p-6 text-center">
+                    <i class="fa-solid fa-truck-fast text-3xl text-[#442dec] mb-3"></i>
+                    <h3 class="font-bold text-lg mb-2">Fast Delivery</h3>
+                    <p class="text-gray-500 text-sm">
+                        We deliver products quickly and safely to your doorstep.
+                    </p>
+                </div>
+
+                <div class="card bg-base-100 shadow-md p-6 text-center">
+                    <i class="fa-solid fa-shield-halved text-3xl text-[#442dec] mb-3"></i>
+                    <h3 class="font-bold text-lg mb-2">Secure Payments</h3>
+                    <p class="text-gray-500 text-sm">
+                        Your transactions are protected with industry-standard security.
+                    </p>
+                </div>
+
+                <div class="card bg-base-100 shadow-md p-6 text-center">
+                    <i class="fa-solid fa-headset text-3xl text-[#442dec] mb-3"></i>
+                    <h3 class="font-bold text-lg mb-2">24/7 Support</h3>
+                    <p class="text-gray-500 text-sm">
+                        Our support team is always ready to help you.
+                    </p>
+                </div>
+
+            </section>
+
+        </section>
+
+        <!-- contact -->
+        <section id="contact_section" class="x_padding hidden">
+            <section class="text-center py-12 bg-gradient-to-r from-[#442dec] to-indigo-600 text-white">
+                <h1 class="text-4xl font-bold mb-3">Contact Us</h1>
+                <p class="opacity-90">We would love to hear from you 💬</p>
+            </section>
+
+            <section class="max-w-6xl mx-auto px-6 py-12 grid md:grid-cols-2 gap-10">
+                <div>
+                    <h2 class="text-2xl font-bold mb-6 text-[#442dec]">Our Office</h2>
+
+                    <div class="space-y-4 text-gray-700">
+
+                        <p>
+                            <i class="fa-solid fa-location-dot text-[#442dec] mr-2"></i>
+                            House 25, Road 7, Dhanmondi,
+                            Dhaka - 1209, Bangladesh
+                        </p>
+
+                        <p>
+                            <i class="fa-solid fa-phone text-[#442dec] mr-2"></i>
+                            +880 1712 555777
+                            <br>
+                            +880 1999 666888
+                        </p>
+
+                        <p>
+                            <i class="fa-solid fa-envelope text-[#442dec] mr-2"></i>
+                            support@swiftcart.com
+                        </p>
+
+                        <p>
+                            <i class="fa-solid fa-clock text-[#442dec] mr-2"></i>
+                            Sat — Thu: 9:00 AM — 8:00 PM
+                            <br>
+                            Friday: Closed
+                        </p>
+
+                    </div>
+                    <div class="mt-6">
+                        <h3 class="font-semibold mb-2">Follow Us</h3>
+                        <div class="flex gap-4 text-xl text-[#442dec]">
+                            <i class="fa-brands fa-facebook"></i>
+                            <i class="fa-brands fa-instagram"></i>
+                            <i class="fa-brands fa-twitter"></i>
+                        </div>
+                    </div>
+                </div>
+                <div class="bg-white shadow-lg rounded-xl p-6">
+                    <h2 class="text-2xl font-bold mb-6 text-[#442dec]">Send a Message</h2>
+
+                    <form class="space-y-4">
+
+                        <input type="text" placeholder="Your Name" class="input input-bordered w-full" required />
+
+                        <input type="email" placeholder="Your Email" class="input input-bordered w-full" required />
+
+                        <input type="tel" placeholder="Phone Number" class="input input-bordered w-full" />
+
+                        <textarea placeholder="Your Message" class="textarea textarea-bordered w-full h-32"
+                            required></textarea>
+
+                        <button type="submit" class="btn bg-[#442dec] text-white border-none w-full hover:bg-[#1401a6]">
+                            Send Message
+                        </button>
+
+                    </form>
+                </div>
+
+            </section>
+
+        </section>
+    </main>
+
+    <!-- footer -->
+    <footer id="footer" class="bg-[#1e2939] x_padding y_padding">
+        <section class="text-neutral-content  grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-5">
+            <nav>
+                <h3 class="text-[#828cff] font-semibold text-lg my-3">SwiftCart</h3>
+                <p class="text-[12px]">Your one-stop shop for all your fashion and lifestyle needs.
+                    Quality
+                    products, fast delivery and excellent support.</p>
+
+            </nav>
+            <nav>
+                <h6 class="footer-title text-gray-200">QUICK LINKS</h6>
+                <ul class="text-white">
+                    <li><button type="button" class="text-xs link link-hover home_link">Home</button></li>
+                    <li><button type="button" class="text-xs link link-hover products_link">Products</button></li>
+                    <li><button type="button" class="text-xs link link-hover about_link">About</button></li>
+                    <li><button type="button" class="text-xs link link-hover contact_link">Contact</button></li>
+                </ul>
+            </nav>
+            <nav>
+                <h6 class="footer-title">SUPPORT</h6>
+                <ul>
+                    <li class="text-xs link link-hover">FAQ</li>
+                    <li class="text-xs link link-hover">Shipping</li>
+                    <li class="text-xs link link-hover">Returns</li>
+                    <li class="text-xs link link-hover">Privacy Policy</li>
+                </ul>
+            </nav>
+            <form>
+                <h6 class="footer-title font-semibold">Subscribe to our Newsletter</h6>
+                <p class="text-[12px] mb-2">The latest news, articles and resources sent to your inbox weekly.</p>
+                <fieldset>
+                    <div class="flex flex-col sm:flex-row gap-[5px] w-full">
+                        <input type="email" placeholder="Enter your email"
+                            class="w-full text-gray-200 px-2 py-2 border rounded text-xs" />
+
+                        <button class="w-full sm:w-auto px-4 py-2 bg-blue-600 text-white text-xs rounded">
+                            Subscribe
+                        </button>
+                    </div>
+
+                </fieldset>
+            </form>
+        </section>
+        <hr class="border-t border-gray-600 w-full my-5" />
+        <section class="flex flex-col-reverse md:flex-row md:justify-between text-neutral-content ">
+            <aside class="mb-5 md:mb-0">
+                <p>© 2025, SwiftCart, Inc. All rights reserved</p>
+            </aside>
+            <nav class="flex gap-4 justify-start md:justify-end mb-5 md:mb-0">
+                <a>
+                    <i class="fa-brands fa-facebook-f text-2xl"></i>
+                </a>
+                <a>
+                    <i class="fa-brands fa-twitter text-2xl"></i>
+                </a>
+                <a>
+                    <i class="fa-brands fa-instagram text-2xl"></i>
+                </a>
+                <a>
+                    <i class="fa-brands fa-linkedin-in text-2xl"></i>
+                </a>
+                <a>
+                    <i class="fa-regular fa-envelope text-2xl"></i>
+                </a>
+
+            </nav>
+        </section>
+    </footer>
+
+    <!-- Open the modal using ID.showModal() method -->
+    <dialog id="details_modal" class="modal modal-bottom sm:modal-middle">
+        <div class="modal-box">
+            <form method="dialog" class="mb-5">
+                <button class="btn btn-sm btn-circle btn-ghost absolute right-2 top-2">✕</button>
+            </form>
+            <div id="modal_content"></div> 
+            <div class="modal-action">
+                <form method="dialog">
+                    <button class="btn btn-xs">Close</button>
+                </form>
+            </div>
+        </div>
+    </dialog>
+
+
+    <script src="script/app.js"></script>
+</body>
+</html>

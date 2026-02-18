@@ -1,0 +1,304 @@
+let cartItems = [];
+const cardContainer = document.getElementById("card_container");
+const allBtn = document.getElementById("all_products");
+const liContainer = document.querySelectorAll(".li_container");
+const allLI = document.querySelectorAll(".li_container li");
+const homeSection = document.getElementById("home_section");
+const productsSection = document.getElementById("products_section");
+const aboutSection = document.getElementById("about_section");
+const contactSection = document.getElementById("contact_section");
+const cartCount = document.getElementById("cart_count");
+const cartContainer = document.getElementById("cart_container");
+const cartBtn = document.getElementById("cart_btn");
+
+const productsLink = document.querySelectorAll(".products_link");
+const homeLink = document.querySelectorAll(".home_link");
+const aboutLink = document.querySelectorAll(".about_link");
+const contactLink = document.querySelectorAll(".contact_link");
+
+productsLink.forEach(link => {
+    link.addEventListener("click", () => {
+        productsSection.classList.remove("hidden");
+        homeSection.classList.add("hidden");
+        aboutSection.classList.add("hidden");
+        contactSection.classList.add("hidden");
+    })
+});
+homeLink.forEach(link => {
+    link.addEventListener("click", () => {
+        productsSection.classList.add("hidden");
+        homeSection.classList.remove("hidden");
+        aboutSection.classList.add("hidden");
+        contactSection.classList.add("hidden");
+    })
+})
+aboutLink.forEach(link => {
+    link.addEventListener("click", () => {
+        productsSection.classList.add("hidden");
+        homeSection.classList.add("hidden");
+        aboutSection.classList.remove("hidden");
+        contactSection.classList.add("hidden");
+    })
+})
+contactLink.forEach(link => {
+    link.addEventListener("click", () => {
+        productsSection.classList.add("hidden");
+        homeSection.classList.add("hidden");
+        aboutSection.classList.add("hidden");
+        contactSection.classList.remove("hidden");
+    })
+})
+liContainer.forEach(ul => {
+    ul.addEventListener("click", (e) => {
+        const clickedLi = e.target.closest("li");
+        if (!clickedLi) return;
+        allLI.forEach(li => {
+            li.classList.remove("active");
+        });
+        clickedLi.classList.add("active");
+    })
+})
+const loadAllProducts = async () => {
+    manageSpinner(true)
+    const url = "https://fakestoreapi.com/products";
+    const res = await fetch(url);
+    const data = await res.json();
+    displayAllProducts(data);
+    trendingCards(data);
+}
+const trendingCards = async (products) => {
+    const topTrending3 = [...products].sort((a, b) => b.rating.rate - a.rating.rate).slice(0, 3);
+    const trendContainer = document.getElementById("trending_container");
+    topTrending3.forEach(product => {
+        // console.log(product);
+        const card = createProductCard(product, (p) => productDetailsModal(p));
+        trendContainer.appendChild(card);
+    });
+    manageSpinner(false);
+}
+const productDetailsModal = (product) => {
+    const cat = product.category;
+    const catName = cat.charAt(0).toUpperCase() + cat.slice(1);
+    const modalContent = document.getElementById("modal_content");
+    modalContent.innerHTML = "";
+    modalContent.innerHTML = `
+            <div class="flex flex-col border-4 border-gray-300 rounded-md shadow p-5">
+                    <img class="w-full p-2 max-h-72 bg-gray-200 shadow-md shadow-white rounded-t-md" src=${product.image} alt=${product.category}>
+
+                    <div class="bg-gray-600 text-white p-5 space-y-3 rounded-b-md text-xs border-t-2 border-white">
+                        <h3 class="font-semibold text-base">${product.title}</h3>
+                        <hr class="w-full border-t-2 border-gray-100 ">
+                        
+                        <p class="">
+                            ${product.description}
+                        </p>
+                        <div>
+                            <p class="mb-2 font-semibold">${catName}</p>
+                            <div>
+                                <p><span class="text-bold">Price: </span> $${product.price} </p> 
+                                <p><span class="text-bold">In stock: </span> ${product.rating.count}</p>
+                                <p><span class="text-bold">Rate: </span> ${product.rating.rate}</p>
+                            </div>
+                        </div>
+                        <div class="flex justify-between bg-gray-100 py-5 px-5 rounded shadow-lg shadow-[#3992a5]">
+                            <button class="btn btn-outline btn-primary">Buy now</button>
+                            <button class="btn btn-outline btn-primary">Add to Cart</button>
+                        </div>
+                    </div>
+                </div>
+        `;
+
+    const detailsModal = document.getElementById("details_modal");
+    detailsModal.showModal();
+    manageSpinner(false);
+}
+const displayAllProducts = (products) => {
+    cardContainer.innerHTML = "";
+    products.forEach(product => {
+        const card = createProductCard(product, (p) => fetchModalProduct(p.id));
+        cardContainer.appendChild(card);
+    });
+    manageSpinner(false)
+}
+const createProductCard = (product, callBackFunction) => {
+    const card = document.createElement("div");
+    card.className = "card bg-base-100 shadow-sm border-2 border-gray-200";
+    card.innerHTML = `
+                <figure class="bg-gray-200">
+                        <img class="py-4 px-6 h-52 object-cover" src=${product.image} alt=${product.category} />
+                    </figure>
+                    <div class="px-2 py-3">
+                        <div class="flex justify-between items-center text-[10px] mb-3">
+                            <div class="rounded-full border border-gray-300 py-[2px] px-[12px] bg-blue-100 font-semibold text-[#442dec]">${product.category}</div>
+                            <div class="items-end">
+                                <span><i class="fa-solid fa-star text-yellow-500"></i></span> 
+                                <span>${product.rating.rate}</span> 
+                                <span>(${product.rating.count})</span>
+                            </div>
+                        </div>
+                        <h3 class="font-semibold mb-2 truncate">${product.title}</h3>
+                        <h2 class="font-semibold text-lg mb-2">$${product.price}</h2>
+                        <div type="button" class="flex flex-wrap items-center justify-between text-sm gap-4 ">
+                           
+                            <button class="details_btn cursor-pointer flex-1 border-2 border-gray-300 rounded py-1 px-1 text-center hover:bg-gray-200">
+                            <i class="fa-regular fa-eye"></i>
+                            <span> Details</span>
+                            </button>
+    
+                            <button  class="add_btn flex-1 rounded text-white cursor-pointer py-1 px-1 text-center bg-[#442dec] hover:bg-[#1401a6]">
+                                <i class="fa-solid fa-cart-arrow-down"></i>
+                                <span>Add</span>
+                            </button>
+                        </div>
+                    </div>
+            `;
+    card.querySelector(`.details_btn`).addEventListener("click", () => {
+        callBackFunction(product);
+    });
+    card.querySelector(".add_btn").addEventListener("click", () => {
+        const item = cartItems.find(i => i.id === product.id);
+        if (item) {
+            item.itemCount += 1;
+        } else {
+            cartItems.push({ ...product, itemCount: 1 })
+        }
+
+        const totalCount = cartItems.reduce((sum, i) => sum + i.itemCount, 0);
+        cartCount.innerText = "";
+        cartCount.innerText = totalCount;
+
+        if (!cartContainer.classList.contains("hidden")) {
+            renderCartItems();
+        }
+    });
+    return card;
+}
+
+const catagoryProducts = async () => {
+    // all catagory names
+    const url = "https://fakestoreapi.com/products/categories";
+    const res = await fetch(url);
+    const catagoryNames = await res.json();
+
+    const catagoryContainer = document.getElementById("catagory_container");
+    const catagoryDivs = document.querySelectorAll("#catagory_container div");
+    catagoryContainer.addEventListener("click", (e) => {
+        catagoryDivs.forEach(div => {
+            div.classList.remove("active2");
+        })
+        const selectedCatagory = e.target.closest("div");
+        if (!selectedCatagory) return;
+        selectedCatagory.classList.add("active2");
+        const catagoryName = selectedCatagory.innerText.trim().toLowerCase();
+        const isExist = catagoryNames.includes(catagoryName);
+        if (isExist) {
+            loadCatagoryProducts(catagoryName);
+        }
+    })
+}
+const loadCatagoryProducts = async (catagoryName) => {
+    manageSpinner(true);
+    const urlCatagory = `https://fakestoreapi.com/products/category/${catagoryName}`;
+    const res = await fetch(urlCatagory);
+    const catagoryProducts = await res.json();
+    displayAllProducts(catagoryProducts);
+}
+const fetchModalProduct = async (id) => {
+    manageSpinner(true);
+    const url = `https://fakestoreapi.com/products/${id}`;
+    const res = await fetch(url);
+    const product = await res.json();
+    productDetailsModal(product)
+}
+const renderCartItems = () => {
+    cartContainer.innerHTML = "";
+    if (cartItems.length === 0) {
+        cartContainer.innerHTML = `
+                <p class="text-center text-gray-700 ">Your cart is empty.</p>
+            `;
+        return;
+    }
+
+    cartItems.forEach(item => {
+        const itemDiv = document.createElement("div");
+        itemDiv.className = "flex flex-col p-2 mb-2 border-b font-semibold";
+        itemDiv.innerHTML = `
+            <div class="flex justify-between items-center gap-2 mb-2">
+                <img src=${item.image} class="w-10 h-10 border border-gray-400 rounded shadow object-cover"/>
+                <div class="grid grid-cols-3 gap-3 flex-1">
+                <div class="col-span-2">
+                    <p class="truncate">${item.title} </p>
+                    <p>Qty: ${item.itemCount}</p>
+                </div>
+                <div>
+                    <p>Unit price:</p>
+                    <p>${item.price}</p>
+                </div>
+                </div>  
+            </div>
+            <div class="flex justify-between gap-3 items-center text-base">
+                <div class="flex gap-4">
+                    <button type="button" class="plus_btn btn btn-xs btn-outline">+</button>
+                    <button type="button" class="minus_btn btn btn-xs btn-outline">-</button>
+                </div>
+                <button type="button" class="delete_btn btn btn-xs btn-outline">
+                    Delete
+                </button>
+            </div>                        
+            `;
+        cartContainer.appendChild(itemDiv);
+        
+        const deleteBtn = itemDiv.querySelector(".delete_btn");
+        const plusBtn = itemDiv.querySelector(".plus_btn");
+        const minusBtn = itemDiv.querySelector(".minus_btn");
+        deleteBtn.addEventListener("click", () => {
+            cartItems = cartItems.filter(i => i.id !== item.id);
+            renderCartItems();
+            cartCount.innerText=cartItems.reduce((sum,i)=>sum+i.itemCount, 0);
+        });
+        plusBtn.addEventListener("click", () => {
+            item.itemCount++;
+            renderCartItems();
+            cartCount.innerText=cartItems.reduce((sum,i)=>sum+i.itemCount, 0);
+        });
+        minusBtn.addEventListener("click", () => {
+            if (item.itemCount === 0) return;
+            item.itemCount--;
+            renderCartItems();
+            cartCount.innerText=cartItems.reduce((sum,i)=>sum+i.itemCount, 0);
+        })
+    });
+    const total = cartItems.reduce((total, i) => total + i.price * i.itemCount, 0);
+        const totalDiv = document.createElement("div");
+        totalDiv.className = "font-blod text-sm";
+        totalDiv.innerText = `Total: ${total.toFixed(2)}`;
+        cartContainer.appendChild(totalDiv);
+}
+cartBtn.addEventListener("click", (e) => {
+    e.stopPropagation();
+    cartContainer.classList.toggle("hidden");
+    renderCartItems();
+});
+document.addEventListener("click", () => {
+    cartContainer.classList.add("hidden");
+});
+cartContainer.addEventListener("click", (e) => {
+    e.stopPropagation();
+});
+renderCartItems();
+const manageSpinner = (status) => {
+    if (status) {
+        document.getElementById("main").classList.add("hidden");
+        document.getElementById("footer").classList.add("hidden");
+        document.getElementById("spinner").classList.remove("hidden");
+    } else {
+        document.getElementById("main").classList.remove("hidden");
+        document.getElementById("footer").classList.remove("hidden");
+        document.getElementById("spinner").classList.add("hidden");
+    }
+}
+catagoryProducts();
+loadAllProducts();
+allBtn.addEventListener("click", () => {
+    loadAllProducts();
+})
