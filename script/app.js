@@ -166,11 +166,6 @@ const updateCartItemsUpdateCartCount = (product) => {
         renderCartItems();
     }
 }
-const updaterCartCount = () => {
-    const totalCount = cartItems.reduce((sum, i) => sum + i.itemCount, 0);
-    cartCount.innerText = "";
-    cartCount.innerText = totalCount;
-}
 const catagoryProducts = async () => {
 
     manageSpinner(true);
@@ -204,12 +199,12 @@ const loadCatagoryProducts = async (catagoryName) => {
         const urlCatagory = `https://fakestoreapi.com/products/category/${catagoryName}`;
         const res = await fetch(urlCatagory);
         const catagoryProducts = await res.json();
+        displayAllProducts(catagoryProducts);
     } catch (error) {
         console.log(`Failed to load products`, error);
     } finally {
         manageSpinner(false);
     }
-    displayAllProducts(catagoryProducts);
 
 }
 const renderCartItems = () => {
