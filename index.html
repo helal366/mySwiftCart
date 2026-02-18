@@ -30,18 +30,24 @@
             <div class="navbar-center hidden lg:flex font-semibold">
                 <ul class="menu menu-horizontal px-1 li_container space-x-2">
                     <li><button type="button" class="cursor-pointer hover:text-[#442dec] home_link">Home</button></li>
-                    <li><button type="button" class="cursor-pointer hover:text-[#442dec] products_link">Products</button></li>
+                    <li><button type="button"
+                            class="cursor-pointer hover:text-[#442dec] products_link">Products</button></li>
                     <li><button type="button" class="cursor-pointer hover:text-[#442dec] about_link">About</button></li>
-                    <li><button type="button" class="cursor-pointer hover:text-[#442dec] contact_link">Contact</button></li>
+                    <li><button type="button" class="cursor-pointer hover:text-[#442dec] contact_link">Contact</button>
+                    </li>
                 </ul>
             </div>
             <div class="navbar-end">
                 <div class="relative">
-                    <span id="cart_count" class="badge badge-primary badge-xs absolute z-10 -top-2 -left-2 text-xs font-bold">0</span>
-                    <button id="cart_btn" class="btn btn-outline btn-xs cursor-pointer active:scale-90 transition-transform duration-200"><i
+                    <span id="cart_count"
+                        class="badge badge-primary badge-xs absolute z-10 -top-2 -left-2 text-xs font-bold">0</span>
+                    <button id="cart_btn"
+                        class="btn btn-outline btn-xs cursor-pointer active:scale-90 transition-transform duration-200"><i
                             class="fa-solid fa-cart-arrow-down text-base lg:text-lg"></i>
                     </button>
-                    <div id="cart_container" class="absolute right-0 mt-2 w-80 p-4 border rounded shadow-lg bg-gray-50 z-50 overflow-y-auto max-h-96 text-xs hidden"></div>
+                    <div id="cart_container"
+                        class="absolute right-0 mt-2 w-80 p-4 border rounded shadow-lg bg-gray-50 z-50 overflow-y-auto max-h-96 text-xs hidden">
+                    </div>
                 </div>
                 <div class="dropdown">
                     <div tabindex="0" role="button" class="btn btn-ghost lg:hidden">
@@ -65,6 +71,10 @@
 
     <!-- loading spinner -->
     <div id="spinner" class="flex justify-center my-10">
+        <span class="loading loading-bars loading-xs"></span>
+        <span class="loading loading-bars loading-sm"></span>
+        <span class="loading loading-bars loading-md"></span>
+        <span class="loading loading-bars loading-lg"></span>
         <span class="loading loading-bars loading-xl"></span>
     </div>
     <main id="main" class="pt-[72px]">
@@ -388,7 +398,7 @@
             <form method="dialog" class="mb-5">
                 <button class="btn btn-sm btn-circle btn-ghost absolute right-2 top-2">✕</button>
             </form>
-            <div id="modal_content"></div> 
+            <div id="modal_content"></div>
             <div class="modal-action">
                 <form method="dialog">
                     <button class="btn btn-xs">Close</button>
@@ -400,4 +410,5 @@
 
     <script src="script/app.js"></script>
 </body>
+
 </html>
