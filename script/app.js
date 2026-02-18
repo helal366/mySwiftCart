@@ -59,7 +59,7 @@ liContainer.forEach(ul => {
     })
 })
 const loadAllProducts = async () => {
-    manageSpinner(true)
+    manageSpinner(true);
     const url = "https://fakestoreapi.com/products";
     const res = await fetch(url);
     const data = await res.json();
@@ -118,14 +118,14 @@ const displayAllProducts = (products) => {
         const card = createProductCard(product, (p) => fetchModalProduct(p.id));
         cardContainer.appendChild(card);
     });
-    manageSpinner(false)
+    manageSpinner(false);
 }
 const createProductCard = (product, callBackFunction) => {
     const card = document.createElement("div");
-    card.className = "card bg-base-100 shadow-sm border-2 border-gray-200";
+    card.className = "card bg-base-100 shadow-sm border-2 border-gray-200 w-full overflow-hidden";
     card.innerHTML = `
                 <figure class="bg-gray-200">
-                        <img class="py-4 px-6 h-52 object-cover" src=${product.image} alt=${product.category} />
+                        <img class="w-full py-4 px-6 h-52 object-contain" src=${product.image} alt=${product.category} />
                     </figure>
                     <div class="px-2 py-3">
                         <div class="flex justify-between items-center text-[10px] mb-3">
