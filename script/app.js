@@ -44,18 +44,11 @@ liContainer.forEach(ul => {
     })
 })
 const loadAllProducts = async () => {
-    try {
-        manageSpinner(true);
-        const url = "https://fakestoreapi.com/products";
-        const res = await fetch(url);
-        const data = await res.json();
-        displayAllProducts(data);
-        trendingCards(data);
-    } catch (error) {
-        console.log(`Failed to load products`, error);
-    } finally {
-        manageSpinner(false)
-    }
+    const url = "https://fakestoreapi.com/products";
+    const res = await fetch(url);
+    const data = await res.json();
+    displayAllProducts(data);
+    trendingCards(data);
 
 }
 const trendingCards = async (products) => {
@@ -167,12 +160,9 @@ const updateCartItemsUpdateCartCount = (product) => {
     }
 }
 const catagoryProducts = async () => {
-
-    manageSpinner(true);
     const url = "https://fakestoreapi.com/products/categories";
     const res = await fetch(url);
     const catagoryNames = await res.json();
-    manageSpinner(false);
 
     const catagoryContainer = document.getElementById("catagory_container");
     catagoryContainer.addEventListener("click", (e) => {
@@ -194,17 +184,10 @@ const catagoryProducts = async () => {
 
 }
 const loadCatagoryProducts = async (catagoryName) => {
-    try {
-        manageSpinner(true);
-        const urlCatagory = `https://fakestoreapi.com/products/category/${catagoryName}`;
-        const res = await fetch(urlCatagory);
-        const catagoryProducts = await res.json();
-        displayAllProducts(catagoryProducts);
-    } catch (error) {
-        console.log(`Failed to load products`, error);
-    } finally {
-        manageSpinner(false);
-    }
+    const urlCatagory = `https://fakestoreapi.com/products/category/${catagoryName}`;
+    const res = await fetch(urlCatagory);
+    const catagoryProducts = await res.json();
+    displayAllProducts(catagoryProducts);
 
 }
 const renderCartItems = () => {
@@ -282,17 +265,6 @@ document.addEventListener("click", () => {
 cartContainer.addEventListener("click", (e) => {
     e.stopPropagation();
 });
-const manageSpinner = (status) => {
-    if (status) {
-        document.getElementById("main").classList.add("hidden");
-        document.getElementById("footer").classList.add("hidden");
-        document.getElementById("spinner").classList.remove("hidden");
-    } else {
-        document.getElementById("main").classList.remove("hidden");
-        document.getElementById("footer").classList.remove("hidden");
-        document.getElementById("spinner").classList.add("hidden");
-    }
-};
 renderCartItems();
 catagoryProducts();
 loadAllProducts();

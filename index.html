@@ -68,260 +68,258 @@
             </div>
         </div>
     </header>
-
     <!-- loading spinner -->
-    <div id="spinner" class="flex justify-center my-10">
-        <span class="loading loading-spinner text-primary"></span>
-        <span class="loading loading-spinner text-secondary"></span>
-        <span class="loading loading-spinner text-accent"></span>
-        <span class="loading loading-spinner text-neutral"></span>
-        <span class="loading loading-spinner text-info"></span>
-        <span class="loading loading-spinner text-success"></span>
-        <span class="loading loading-spinner text-warning"></span>
-        <span class="loading loading-spinner text-error"></span>
-    </div>
-    <main id="main" class="pt-[72px]">
-        <!-- home -->
-        <section id="home_section">
-            <!-- hero section -->
-            <section class=" w-full min-h-[500px] bg-cover bg-center relative x_padding flex items-center"
-                style="background-image: url('./Assets/banner-image.png');">
-                <!-- transparent div -->
-                <div class="absolute inset-0 bg-gradient-to-r from-[#191f2d] to-transparent"></div>
-                <!-- content div -->
-                <div
-                    class="relative h-full text-white flex flex-col items-start justify-start w-full sm:w-11/12 md:w-3/4 lg:w-1/2">
-                    <div class="space-y-6">
-                        <h1 class="text-2xl sm:text-3xl lg:text-4xl font-bold">Best Collection For You</h1>
-                        <p>Discover the latest trends in fashion, electronics and more. Shop with confidence and style
-                            at
-                            SwiftCart.</p>
-                        <button class="btn btn-primary">Shop now</button>
-                    </div>
-                </div>
-            </section>
-
-            <!-- why choose us section -->
-            <section class="bg-gray-100 x_padding py-20 ">
-                <div >
-                    <h2 class="text-center text-3xl font-bold py-2">Why Choose Us</h2>
-                    <p class="text-center text-gray-600 py-2 mb-10">
-                        We provide the best shopping experience with top-notch services.
-                    </p>
-                </div>
-                <div class="grid md:grid-cols-2 xl:grid-cols-4 gap-5">
-                    <div class="bg-white rounded-md p-5 relative mb-5">
-                        <button class="absolute -top-5 rounded-lg bg-purple-50 p-4  border-2 border-white shadow-2xl"
-                            style="box-shadow: 0 6px 12px #3b82f680;">
-                            <i class="fa-solid fa-truck text-xl text-[#442dec] "></i>
-                        </button>
-                        <h3 class="font-semibold text-xl py-2 mt-10">Fast Delivery</h3>
-                        <p class="text-gray-400 text-[14px] py-2">Get your orders delivered to your doorstep quickly and
-                            efficiently.</p>
-                    </div>
-                    <div class="bg-white rounded-md p-5 relative mb-5">
-                        <button class="absolute -top-5 rounded-lg bg-purple-50 p-4  border-2 border-white shadow-2xl"
-                            style="box-shadow: 0 6px 12px #3b82f680;">
-                            <i class="fa-solid fa-headphones text-xl text-[#442dec] "></i>
-                        </button>
-                        <h3 class="font-semibold text-xl py-2 mt-10">24/7 Support</h3>
-                        <p class="text-gray-400 text-[14px] py-2">
-                            Our support team is available around the clock to assist you.
-                        </p>
-                    </div>
-                    <div class="bg-white rounded-md p-5 relative mb-5">
-                        <button class="absolute -top-5 rounded-lg bg-purple-50 p-4  border-2 border-white shadow-2xl"
-                            style="box-shadow: 0 6px 12px #3b82f680;">
-                            <i class="fa-solid fa-user-shield text-xl text-[#442dec] "></i>
-
-                        </button>
-                        <h3 class="font-semibold text-xl py-2 mt-10">Secure payment</h3>
-                        <p class="text-gray-400 text-[14px] py-2">
-                            Experience safe and secure transactions with our encrypted payment systems.
-                        </p>
-                    </div>
-                    <div class="bg-white rounded-md p-5 relative mb-5">
-                        <button class="absolute -top-5 rounded-lg bg-purple-50 p-4  border-2 border-white shadow-2xl"
-                            style="box-shadow: 0 6px 12px #3b82f680;">
-                            <i class="fa-solid fa-arrows-rotate text-xl text-[#442dec] "></i>
-                        </button>
-                        <h3 class="font-semibold text-xl py-2 mt-10">Easy returns</h3>
-                        <p class="text-gray-400 text-[14px] py-2">
-                            Not satisfied? Return your products easily within 30 days.
-                        </p>
-                    </div>
-                </div>
-
-            </section>
-
-            <!-- trending now -->
-            <section class="x_padding my-10">
-                <h2 class="text-3xl font-bold py-3 mb-2">Trending now</h2>
-
-                <div id="trending_container" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5 mb-2"></div>
-            </section>
-        </section>
-
-        <!-- products section -->
-        <section id="products_section" class="min-h-[500px] pb-10 x_padding hidden">
-            <h2 class=" py-5 md:py-8 text-center font-bold text-3xl ">Our Products</h2>
-            <div id="catagory_container" class="flex gap-5 flex-wrap justify-center text-[9px] mb-10">
-                <div id="all_products" data-category="all"
-                    class="btn rounded-full border-2 border-gray-300 bg-white hover:bg-[#442dec] hover:text-white text-gray-500 active2">
-                    All</div>
-                <div data-category="electronics"
-                    class="btn rounded-full border-2 border-gray-300 bg-white hover:bg-[#442dec] hover:text-white text-gray-500">
-                    Electronics</div>
-                <div data-category="jewelery"
-                    class="btn rounded-full border-2 border-gray-300 bg-white hover:bg-[#442dec] hover:text-white text-gray-500">
-                    Jewelery</div>
-                <div data-category="men's Clothing"
-                    class="btn rounded-full border-2 border-gray-300 bg-white hover:bg-[#442dec] hover:text-white text-gray-500">
-                    Men's Clothing</div>
-                <div data-category="women's Clothing"
-                    class="btn rounded-full border-2 border-gray-300 bg-white hover:bg-[#442dec] hover:text-white text-gray-500">
-                    Women's Clothing</div>
-            </div>
-            <div id="card_container" class="grid md:grid-cols-2 xl:grid-cols-4 gap-5">
-            </div>
-        </section>
-
-        <!-- about -->
-        <section id="about_section" class="min-h-[500px] x_padding py-10 hidden">
-            <!-- title -->
-            <section class="text-center mb-12">
-                <h1 class="text-4xl font-bold mb-3">About SwiftCart</h1>
-                <p class="text-gray-500 max-w-2xl mx-auto">
-                    SwiftCart is your one-stop destination for fashion, electronics,
-                    and lifestyle products — delivered quickly and reliably.
-                </p>
-            </section>
-
-            <!-- about content -->
-            <section class="grid md:grid-cols-2 gap-10 items-center mb-16">
-
-                <!-- image -->
-                <img src="https://i.postimg.cc/PqCpyDZQ/a.png" class="rounded-lg shadow-lg w-full" alt="Shopping">
-
-                <!-- text-->
-                <div>
-                    <h2 class="text-2xl font-bold mb-4">Our Mission</h2>
-                    <p class="text-gray-600 mb-4">
-                        Our mission is to make online shopping simple, fast, and
-                        enjoyable for everyone. We carefully select high-quality
-                        products and partner with trusted suppliers to ensure
-                        customer satisfaction.
-                    </p>
-
-                    <p class="text-gray-600">
-                        Whether you're looking for the latest gadgets, trendy
-                        fashion, or everyday essentials — SwiftCart has you covered.
-                    </p>
-                </div>
-            </section>
-
-            <!-- features -->
-            <section class="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
-
-                <div class="card bg-base-100 shadow-md p-6 text-center">
-                    <i class="fa-solid fa-truck-fast text-3xl text-[#442dec] mb-3"></i>
-                    <h3 class="font-bold text-lg mb-2">Fast Delivery</h3>
-                    <p class="text-gray-500 text-sm">
-                        We deliver products quickly and safely to your doorstep.
-                    </p>
-                </div>
-
-                <div class="card bg-base-100 shadow-md p-6 text-center">
-                    <i class="fa-solid fa-shield-halved text-3xl text-[#442dec] mb-3"></i>
-                    <h3 class="font-bold text-lg mb-2">Secure Payments</h3>
-                    <p class="text-gray-500 text-sm">
-                        Your transactions are protected with industry-standard security.
-                    </p>
-                </div>
-
-                <div class="card bg-base-100 shadow-md p-6 text-center">
-                    <i class="fa-solid fa-headset text-3xl text-[#442dec] mb-3"></i>
-                    <h3 class="font-bold text-lg mb-2">24/7 Support</h3>
-                    <p class="text-gray-500 text-sm">
-                        Our support team is always ready to help you.
-                    </p>
-                </div>
-
-            </section>
-
-        </section>
-
-        <!-- contact -->
-        <section id="contact_section" class="x_padding hidden">
-            <section class="text-center py-12 bg-gradient-to-r from-[#442dec] to-indigo-600 text-white">
-                <h1 class="text-4xl font-bold mb-3">Contact Us</h1>
-                <p class="opacity-90">We would love to hear from you 💬</p>
-            </section>
-
-            <section class="max-w-6xl mx-auto px-6 py-12 grid md:grid-cols-2 gap-10">
-                <div>
-                    <h2 class="text-2xl font-bold mb-6 text-[#442dec]">Our Office</h2>
-
-                    <div class="space-y-4 text-gray-700">
-
-                        <p>
-                            <i class="fa-solid fa-location-dot text-[#442dec] mr-2"></i>
-                            House 25, Road 7, Dhanmondi,
-                            Dhaka - 1209, Bangladesh
-                        </p>
-
-                        <p>
-                            <i class="fa-solid fa-phone text-[#442dec] mr-2"></i>
-                            +880 1712 555777
-                            <br>
-                            +880 1999 666888
-                        </p>
-
-                        <p>
-                            <i class="fa-solid fa-envelope text-[#442dec] mr-2"></i>
-                            support@swiftcart.com
-                        </p>
-
-                        <p>
-                            <i class="fa-solid fa-clock text-[#442dec] mr-2"></i>
-                            Sat — Thu: 9:00 AM — 8:00 PM
-                            <br>
-                            Friday: Closed
-                        </p>
-
-                    </div>
-                    <div class="mt-6">
-                        <h3 class="font-semibold mb-2">Follow Us</h3>
-                        <div class="flex gap-4 text-xl text-[#442dec]">
-                            <i class="fa-brands fa-facebook"></i>
-                            <i class="fa-brands fa-instagram"></i>
-                            <i class="fa-brands fa-twitter"></i>
+    <main  class="pt-[72px]">
+        <div class="flex justify-center my-5">
+            <span class="loading loading-ball loading-xs"></span>
+            <span class="loading loading-ball loading-sm"></span>
+            <span class="loading loading-ball loading-md"></span>
+            <span class="loading loading-ball loading-lg"></span>
+            <span class="loading loading-ball loading-xl"></span>
+        </div>
+        <section id="main">
+            <!-- home -->
+            <section id="home_section">
+                <!-- hero section -->
+                <section class=" w-full min-h-[500px] bg-cover bg-center relative x_padding flex items-center"
+                    style="background-image: url('./Assets/banner-image.png');">
+                    <!-- transparent div -->
+                    <div class="absolute inset-0 bg-gradient-to-r from-[#191f2d] to-transparent"></div>
+                    <!-- content div -->
+                    <div
+                        class="relative h-full text-white flex flex-col items-start justify-start w-full sm:w-11/12 md:w-3/4 lg:w-1/2">
+                        <div class="space-y-6">
+                            <h1 class="text-2xl sm:text-3xl lg:text-4xl font-bold">Best Collection For You</h1>
+                            <p>Discover the latest trends in fashion, electronics and more. Shop with confidence and style
+                                at
+                                SwiftCart.</p>
+                            <button class="btn btn-primary">Shop now</button>
                         </div>
                     </div>
-                </div>
-                <div class="bg-white shadow-lg rounded-xl p-6">
-                    <h2 class="text-2xl font-bold mb-6 text-[#442dec]">Send a Message</h2>
-
-                    <form class="space-y-4">
-
-                        <input type="text" placeholder="Your Name" class="input input-bordered w-full" required />
-
-                        <input type="email" placeholder="Your Email" class="input input-bordered w-full" required />
-
-                        <input type="tel" placeholder="Phone Number" class="input input-bordered w-full" />
-
-                        <textarea placeholder="Your Message" class="textarea textarea-bordered w-full h-32"
-                            required></textarea>
-
-                        <button type="submit" class="btn bg-[#442dec] text-white border-none w-full hover:bg-[#1401a6]">
-                            Send Message
-                        </button>
-
-                    </form>
-                </div>
-
+                </section>
+    
+                <!-- why choose us section -->
+                <section class="bg-gray-100 x_padding py-20 ">
+                    <div>
+                        <h2 class="text-center text-3xl font-bold py-2">Why Choose Us</h2>
+                        <p class="text-center text-gray-600 py-2 mb-10">
+                            We provide the best shopping experience with top-notch services.
+                        </p>
+                    </div>
+                    <div class="grid md:grid-cols-2 xl:grid-cols-4 gap-5">
+                        <div class="bg-white rounded-md p-5 relative mb-5">
+                            <button class="absolute -top-5 rounded-lg bg-purple-50 p-4  border-2 border-white shadow-2xl"
+                                style="box-shadow: 0 6px 12px #3b82f680;">
+                                <i class="fa-solid fa-truck text-xl text-[#442dec] "></i>
+                            </button>
+                            <h3 class="font-semibold text-xl py-2 mt-10">Fast Delivery</h3>
+                            <p class="text-gray-400 text-[14px] py-2">Get your orders delivered to your doorstep quickly and
+                                efficiently.</p>
+                        </div>
+                        <div class="bg-white rounded-md p-5 relative mb-5">
+                            <button class="absolute -top-5 rounded-lg bg-purple-50 p-4  border-2 border-white shadow-2xl"
+                                style="box-shadow: 0 6px 12px #3b82f680;">
+                                <i class="fa-solid fa-headphones text-xl text-[#442dec] "></i>
+                            </button>
+                            <h3 class="font-semibold text-xl py-2 mt-10">24/7 Support</h3>
+                            <p class="text-gray-400 text-[14px] py-2">
+                                Our support team is available around the clock to assist you.
+                            </p>
+                        </div>
+                        <div class="bg-white rounded-md p-5 relative mb-5">
+                            <button class="absolute -top-5 rounded-lg bg-purple-50 p-4  border-2 border-white shadow-2xl"
+                                style="box-shadow: 0 6px 12px #3b82f680;">
+                                <i class="fa-solid fa-user-shield text-xl text-[#442dec] "></i>
+    
+                            </button>
+                            <h3 class="font-semibold text-xl py-2 mt-10">Secure payment</h3>
+                            <p class="text-gray-400 text-[14px] py-2">
+                                Experience safe and secure transactions with our encrypted payment systems.
+                            </p>
+                        </div>
+                        <div class="bg-white rounded-md p-5 relative mb-5">
+                            <button class="absolute -top-5 rounded-lg bg-purple-50 p-4  border-2 border-white shadow-2xl"
+                                style="box-shadow: 0 6px 12px #3b82f680;">
+                                <i class="fa-solid fa-arrows-rotate text-xl text-[#442dec] "></i>
+                            </button>
+                            <h3 class="font-semibold text-xl py-2 mt-10">Easy returns</h3>
+                            <p class="text-gray-400 text-[14px] py-2">
+                                Not satisfied? Return your products easily within 30 days.
+                            </p>
+                        </div>
+                    </div>
+    
+                </section>
+    
+                <!-- trending now -->
+                <section class="x_padding my-10">
+                    <h2 class="text-3xl font-bold py-3 mb-2">Trending now</h2>
+    
+                    <div id="trending_container" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5 mb-2"></div>
+                </section>
             </section>
-
+    
+            <!-- products section -->
+            <section id="products_section" class="min-h-[500px] pb-10 x_padding hidden">
+                <h2 class=" py-5 md:py-8 text-center font-bold text-3xl ">Our Products</h2>
+                <div id="catagory_container" class="flex gap-5 flex-wrap justify-center text-[9px] mb-10">
+                    <div id="all_products" data-category="all"
+                        class="btn rounded-full border-2 border-gray-300 bg-white hover:bg-[#442dec] hover:text-white text-gray-500 active2">
+                        All</div>
+                    <div data-category="electronics"
+                        class="btn rounded-full border-2 border-gray-300 bg-white hover:bg-[#442dec] hover:text-white text-gray-500">
+                        Electronics</div>
+                    <div data-category="jewelery"
+                        class="btn rounded-full border-2 border-gray-300 bg-white hover:bg-[#442dec] hover:text-white text-gray-500">
+                        Jewelery</div>
+                    <div data-category="men's Clothing"
+                        class="btn rounded-full border-2 border-gray-300 bg-white hover:bg-[#442dec] hover:text-white text-gray-500">
+                        Men's Clothing</div>
+                    <div data-category="women's Clothing"
+                        class="btn rounded-full border-2 border-gray-300 bg-white hover:bg-[#442dec] hover:text-white text-gray-500">
+                        Women's Clothing</div>
+                </div>
+                <div id="card_container" class="grid md:grid-cols-2 xl:grid-cols-4 gap-5">
+                </div>
+            </section>
+    
+            <!-- about -->
+            <section id="about_section" class="min-h-[500px] x_padding py-10 hidden">
+                <!-- title -->
+                <section class="text-center mb-12">
+                    <h1 class="text-4xl font-bold mb-3">About SwiftCart</h1>
+                    <p class="text-gray-500 max-w-2xl mx-auto">
+                        SwiftCart is your one-stop destination for fashion, electronics,
+                        and lifestyle products — delivered quickly and reliably.
+                    </p>
+                </section>
+    
+                <!-- about content -->
+                <section class="grid md:grid-cols-2 gap-10 items-center mb-16">
+    
+                    <!-- image -->
+                    <img src="https://i.postimg.cc/PqCpyDZQ/a.png" class="rounded-lg shadow-lg w-full" alt="Shopping">
+    
+                    <!-- text-->
+                    <div>
+                        <h2 class="text-2xl font-bold mb-4">Our Mission</h2>
+                        <p class="text-gray-600 mb-4">
+                            Our mission is to make online shopping simple, fast, and
+                            enjoyable for everyone. We carefully select high-quality
+                            products and partner with trusted suppliers to ensure
+                            customer satisfaction.
+                        </p>
+    
+                        <p class="text-gray-600">
+                            Whether you're looking for the latest gadgets, trendy
+                            fashion, or everyday essentials — SwiftCart has you covered.
+                        </p>
+                    </div>
+                </section>
+    
+                <!-- features -->
+                <section class="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
+    
+                    <div class="card bg-base-100 shadow-md p-6 text-center">
+                        <i class="fa-solid fa-truck-fast text-3xl text-[#442dec] mb-3"></i>
+                        <h3 class="font-bold text-lg mb-2">Fast Delivery</h3>
+                        <p class="text-gray-500 text-sm">
+                            We deliver products quickly and safely to your doorstep.
+                        </p>
+                    </div>
+    
+                    <div class="card bg-base-100 shadow-md p-6 text-center">
+                        <i class="fa-solid fa-shield-halved text-3xl text-[#442dec] mb-3"></i>
+                        <h3 class="font-bold text-lg mb-2">Secure Payments</h3>
+                        <p class="text-gray-500 text-sm">
+                            Your transactions are protected with industry-standard security.
+                        </p>
+                    </div>
+    
+                    <div class="card bg-base-100 shadow-md p-6 text-center">
+                        <i class="fa-solid fa-headset text-3xl text-[#442dec] mb-3"></i>
+                        <h3 class="font-bold text-lg mb-2">24/7 Support</h3>
+                        <p class="text-gray-500 text-sm">
+                            Our support team is always ready to help you.
+                        </p>
+                    </div>
+    
+                </section>
+    
+            </section>
+    
+            <!-- contact -->
+            <section id="contact_section" class="x_padding hidden">
+                <section class="text-center py-12 bg-gradient-to-r from-[#442dec] to-indigo-600 text-white">
+                    <h1 class="text-4xl font-bold mb-3">Contact Us</h1>
+                    <p class="opacity-90">We would love to hear from you 💬</p>
+                </section>
+    
+                <section class="max-w-6xl mx-auto px-6 py-12 grid md:grid-cols-2 gap-10">
+                    <div>
+                        <h2 class="text-2xl font-bold mb-6 text-[#442dec]">Our Office</h2>
+    
+                        <div class="space-y-4 text-gray-700">
+    
+                            <p>
+                                <i class="fa-solid fa-location-dot text-[#442dec] mr-2"></i>
+                                House 25, Road 7, Dhanmondi,
+                                Dhaka - 1209, Bangladesh
+                            </p>
+    
+                            <p>
+                                <i class="fa-solid fa-phone text-[#442dec] mr-2"></i>
+                                +880 1712 555777
+                                <br>
+                                +880 1999 666888
+                            </p>
+    
+                            <p>
+                                <i class="fa-solid fa-envelope text-[#442dec] mr-2"></i>
+                                support@swiftcart.com
+                            </p>
+    
+                            <p>
+                                <i class="fa-solid fa-clock text-[#442dec] mr-2"></i>
+                                Sat — Thu: 9:00 AM — 8:00 PM
+                                <br>
+                                Friday: Closed
+                            </p>
+    
+                        </div>
+                        <div class="mt-6">
+                            <h3 class="font-semibold mb-2">Follow Us</h3>
+                            <div class="flex gap-4 text-xl text-[#442dec]">
+                                <i class="fa-brands fa-facebook"></i>
+                                <i class="fa-brands fa-instagram"></i>
+                                <i class="fa-brands fa-twitter"></i>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="bg-white shadow-lg rounded-xl p-6">
+                        <h2 class="text-2xl font-bold mb-6 text-[#442dec]">Send a Message</h2>
+    
+                        <form class="space-y-4">
+    
+                            <input type="text" placeholder="Your Name" class="input input-bordered w-full" required />
+    
+                            <input type="email" placeholder="Your Email" class="input input-bordered w-full" required />
+    
+                            <input type="tel" placeholder="Phone Number" class="input input-bordered w-full" />
+    
+                            <textarea placeholder="Your Message" class="textarea textarea-bordered w-full h-32"
+                                required></textarea>
+    
+                            <button type="submit" class="btn bg-[#442dec] text-white border-none w-full hover:bg-[#1401a6]">
+                                Send Message
+                            </button>
+    
+                        </form>
+                    </div>
+    
+                </section>
+    
+            </section>
         </section>
     </main>
 
@@ -413,4 +411,5 @@
 
     <script src="script/app.js"></script>
 </body>
+
 </html>
