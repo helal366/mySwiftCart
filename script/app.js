@@ -93,19 +93,21 @@ const productDetailsModal = (product) => {
                         </div>
                         <div class="flex justify-between bg-gray-100 py-5 px-5 rounded shadow-lg shadow-[#3992a5]">
                             <button class="btn btn-outline btn-primary">Buy now</button>
-                            <button class="btn btn-outline btn-primary">Add to Cart</button>
+                            <button class="modal_add_btn btn btn-outline btn-primary">Add to Cart</button>
                         </div>
                     </div>
                 </div>
         `;
-
+    modalContent.querySelector(".modal_add_btn").addEventListener("click", ()=>{
+        updateCartItemsUpdateCartCount(product);
+    })
     const detailsModal = document.getElementById("details_modal");
     detailsModal.showModal();
 }
 const displayAllProducts = (products) => {
     cardContainer.innerHTML = "";
     products.forEach(product => {
-        const card = createProductCard(product, (p) => productDetailsModal(p.id));
+        const card = createProductCard(product, (p) => productDetailsModal(p));
         cardContainer.appendChild(card);
     });
 }
@@ -145,20 +147,24 @@ const createProductCard = (product, callBackFunction) => {
         callBackFunction(product);
     });
     card.querySelector(".add_btn").addEventListener("click", () => {
-        const item = cartItems.find(i => i.id === product.id);
-        if (item) {
-            item.itemCount += 1;
-        } else {
-            cartItems.push({ ...product, itemCount: 1 })
-        }
-
-        updaterCartCount();
-
-        if (!cartContainer.classList.contains("hidden")) {
-            renderCartItems();
-        }
+        updateCartItemsUpdateCartCount(product);
     });
     return card;
+}
+const updateCartItemsUpdateCartCount = (product) => {
+    const item = cartItems.find(i => i.id === product.id);
+    if (item) {
+        item.itemCount += 1;
+    } else {
+        cartItems.push({ ...product, itemCount: 1 })
+    }
+
+    const totalCount = cartItems.reduce((sum, i) => sum + i.itemCount, 0);
+    cartCount.innerText = "";
+    cartCount.innerText = totalCount;
+    if (!cartContainer.classList.contains("hidden")) {
+        renderCartItems();
+    }
 }
 const updaterCartCount = () => {
     const totalCount = cartItems.reduce((sum, i) => sum + i.itemCount, 0);
@@ -166,7 +172,7 @@ const updaterCartCount = () => {
     cartCount.innerText = totalCount;
 }
 const catagoryProducts = async () => {
-  
+
     manageSpinner(true);
     const url = "https://fakestoreapi.com/products/categories";
     const res = await fetch(url);
@@ -175,18 +181,18 @@ const catagoryProducts = async () => {
 
     const catagoryContainer = document.getElementById("catagory_container");
     catagoryContainer.addEventListener("click", (e) => {
-        const selected=e.target.closest("[data-category]");
-        if(!selected) return;
-        document.querySelectorAll("#catagory_container .btn").forEach(div=>{
+        const selected = e.target.closest("[data-category]");
+        if (!selected) return;
+        document.querySelectorAll("#catagory_container .btn").forEach(div => {
             div.classList.remove("active2");
         });
         selected.classList.add("active2");
-        
-        const name=selected.dataset.category;
+
+        const name = selected.dataset.category;
         console.log(name);
-        if(name==="all"){
+        if (name === "all") {
             loadAllProducts()
-        }else{
+        } else {
             loadAllProducts(name)
         }
     })
