@@ -44,12 +44,13 @@ liContainer.forEach(ul => {
     })
 })
 const loadAllProducts = async () => {
+    manageSpinner(true);
     const url = "https://fakestoreapi.com/products";
     const res = await fetch(url);
     const data = await res.json();
     displayAllProducts(data);
     trendingCards(data);
-
+    manageSpinner(false);
 }
 const trendingCards = async (products) => {
     const topTrending3 = [...products].sort((a, b) => b.rating.rate - a.rating.rate).slice(0, 3);
@@ -160,10 +161,6 @@ const updateCartItemsUpdateCartCount = (product) => {
     }
 }
 const catagoryProducts = async () => {
-    const url = "https://fakestoreapi.com/products/categories";
-    const res = await fetch(url);
-    const catagoryNames = await res.json();
-
     const catagoryContainer = document.getElementById("catagory_container");
     catagoryContainer.addEventListener("click", (e) => {
         const selected = e.target.closest("[data-category]");
@@ -173,22 +170,21 @@ const catagoryProducts = async () => {
         });
         selected.classList.add("active2");
 
-        const name = selected.dataset.category;
-        console.log(name);
-        if (name === "all") {
+        const catagoryName = selected.dataset.category;
+        if (catagoryName === "all") {
             loadAllProducts()
         } else {
-            loadAllProducts(name)
+            loadCatagoryProducts(catagoryName)
         }
     })
-
 }
 const loadCatagoryProducts = async (catagoryName) => {
+    manageSpinner(true)
     const urlCatagory = `https://fakestoreapi.com/products/category/${catagoryName}`;
     const res = await fetch(urlCatagory);
     const catagoryProducts = await res.json();
     displayAllProducts(catagoryProducts);
-
+    manageSpinner(false);
 }
 const renderCartItems = () => {
     cartContainer.innerHTML = "";
@@ -265,6 +261,17 @@ document.addEventListener("click", () => {
 cartContainer.addEventListener("click", (e) => {
     e.stopPropagation();
 });
+const manageSpinner=(status)=>{
+    if(status){
+        document.getElementById("spinner").classList.remove("hidden");
+        document.getElementById("main_section").classList.add("hidden");
+        document.getElementById("footer").classList.add("hidden");
+    }else{
+        document.getElementById("spinner").classList.add("hidden");
+        document.getElementById("main_section").classList.remove("hidden");
+        document.getElementById("footer").classList.remove("hidden");
+    }
+}
 renderCartItems();
 catagoryProducts();
 loadAllProducts();
