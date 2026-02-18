@@ -16,37 +16,22 @@ const homeLink = document.querySelectorAll(".home_link");
 const aboutLink = document.querySelectorAll(".about_link");
 const contactLink = document.querySelectorAll(".contact_link");
 
+const sections = [productsSection, homeSection, aboutSection, contactSection];
+const showSection = (section) => {
+    sections.forEach(sec => sec.classList.add("hidden"));
+    section.classList.remove("hidden");
+}
 productsLink.forEach(link => {
-    link.addEventListener("click", () => {
-        productsSection.classList.remove("hidden");
-        homeSection.classList.add("hidden");
-        aboutSection.classList.add("hidden");
-        contactSection.classList.add("hidden");
-    })
+    link.addEventListener("click", () => showSection(productsSection));
 });
 homeLink.forEach(link => {
-    link.addEventListener("click", () => {
-        productsSection.classList.add("hidden");
-        homeSection.classList.remove("hidden");
-        aboutSection.classList.add("hidden");
-        contactSection.classList.add("hidden");
-    })
+    link.addEventListener("click", () => showSection(homeSection));
 })
 aboutLink.forEach(link => {
-    link.addEventListener("click", () => {
-        productsSection.classList.add("hidden");
-        homeSection.classList.add("hidden");
-        aboutSection.classList.remove("hidden");
-        contactSection.classList.add("hidden");
-    })
+    link.addEventListener("click", () => showSection(aboutSection));
 })
 contactLink.forEach(link => {
-    link.addEventListener("click", () => {
-        productsSection.classList.add("hidden");
-        homeSection.classList.add("hidden");
-        aboutSection.classList.add("hidden");
-        contactSection.classList.remove("hidden");
-    })
+    link.addEventListener("click", () => showSection(contactSection));
 })
 liContainer.forEach(ul => {
     ul.addEventListener("click", (e) => {
@@ -59,12 +44,19 @@ liContainer.forEach(ul => {
     })
 })
 const loadAllProducts = async () => {
-    manageSpinner(true);
-    const url = "https://fakestoreapi.com/products";
-    const res = await fetch(url);
-    const data = await res.json();
-    displayAllProducts(data);
-    trendingCards(data);
+    try {
+        manageSpinner(true);
+        const url = "https://fakestoreapi.com/products";
+        const res = await fetch(url);
+        const data = await res.json();
+        displayAllProducts(data);
+        trendingCards(data);
+    } catch (error) {
+        console.log(`Failed to load products`, error);
+    } finally {
+        manageSpinner(false)
+    }
+
 }
 const trendingCards = async (products) => {
     const topTrending3 = [...products].sort((a, b) => b.rating.rate - a.rating.rate).slice(0, 3);
@@ -74,7 +66,6 @@ const trendingCards = async (products) => {
         const card = createProductCard(product, (p) => productDetailsModal(p));
         trendContainer.appendChild(card);
     });
-    manageSpinner(false);
 }
 const productDetailsModal = (product) => {
     const cat = product.category;
@@ -110,15 +101,13 @@ const productDetailsModal = (product) => {
 
     const detailsModal = document.getElementById("details_modal");
     detailsModal.showModal();
-    manageSpinner(false);
 }
 const displayAllProducts = (products) => {
     cardContainer.innerHTML = "";
     products.forEach(product => {
-        const card = createProductCard(product, (p) => fetchModalProduct(p.id));
+        const card = createProductCard(product, (p) => productDetailsModal(p.id));
         cardContainer.appendChild(card);
     });
-    manageSpinner(false);
 }
 const createProductCard = (product, callBackFunction) => {
     const card = document.createElement("div");
@@ -163,9 +152,7 @@ const createProductCard = (product, callBackFunction) => {
             cartItems.push({ ...product, itemCount: 1 })
         }
 
-        const totalCount = cartItems.reduce((sum, i) => sum + i.itemCount, 0);
-        cartCount.innerText = "";
-        cartCount.innerText = totalCount;
+        updaterCartCount();
 
         if (!cartContainer.classList.contains("hidden")) {
             renderCartItems();
@@ -173,42 +160,51 @@ const createProductCard = (product, callBackFunction) => {
     });
     return card;
 }
-
+const updaterCartCount = () => {
+    const totalCount = cartItems.reduce((sum, i) => sum + i.itemCount, 0);
+    cartCount.innerText = "";
+    cartCount.innerText = totalCount;
+}
 const catagoryProducts = async () => {
-    // all catagory names
+  
+    manageSpinner(true);
     const url = "https://fakestoreapi.com/products/categories";
     const res = await fetch(url);
     const catagoryNames = await res.json();
+    manageSpinner(false);
 
     const catagoryContainer = document.getElementById("catagory_container");
-    const catagoryDivs = document.querySelectorAll("#catagory_container div");
     catagoryContainer.addEventListener("click", (e) => {
-        catagoryDivs.forEach(div => {
+        const selected=e.target.closest("[data-category]");
+        if(!selected) return;
+        document.querySelectorAll("#catagory_container .btn").forEach(div=>{
             div.classList.remove("active2");
-        })
-        const selectedCatagory = e.target.closest("div");
-        if (!selectedCatagory) return;
-        selectedCatagory.classList.add("active2");
-        const catagoryName = selectedCatagory.innerText.trim().toLowerCase();
-        const isExist = catagoryNames.includes(catagoryName);
-        if (isExist) {
-            loadCatagoryProducts(catagoryName);
+        });
+        selected.classList.add("active2");
+        
+        const name=selected.dataset.category;
+        console.log(name);
+        if(name==="all"){
+            loadAllProducts()
+        }else{
+            loadAllProducts(name)
         }
     })
+
 }
 const loadCatagoryProducts = async (catagoryName) => {
-    manageSpinner(true);
-    const urlCatagory = `https://fakestoreapi.com/products/category/${catagoryName}`;
-    const res = await fetch(urlCatagory);
-    const catagoryProducts = await res.json();
+    try {
+        manageSpinner(true);
+        const urlCatagory = `https://fakestoreapi.com/products/category/${catagoryName}`;
+        const res = await fetch(urlCatagory);
+        const catagoryProducts = await res.json();
+    } catch (error) {
+        console.log(`Failed to load products`, error);
+    } finally {
+        manageSpinner(false);
+    }
     displayAllProducts(catagoryProducts);
-}
-const fetchModalProduct = async (id) => {
-    manageSpinner(true);
-    const url = `https://fakestoreapi.com/products/${id}`;
-    const res = await fetch(url);
-    const product = await res.json();
-    productDetailsModal(product)
+
 }
 const renderCartItems = () => {
     cartContainer.innerHTML = "";
@@ -247,32 +243,32 @@ const renderCartItems = () => {
             </div>                        
             `;
         cartContainer.appendChild(itemDiv);
-        
+
         const deleteBtn = itemDiv.querySelector(".delete_btn");
         const plusBtn = itemDiv.querySelector(".plus_btn");
         const minusBtn = itemDiv.querySelector(".minus_btn");
         deleteBtn.addEventListener("click", () => {
             cartItems = cartItems.filter(i => i.id !== item.id);
             renderCartItems();
-            cartCount.innerText=cartItems.reduce((sum,i)=>sum+i.itemCount, 0);
+            cartCount.innerText = cartItems.reduce((sum, i) => sum + i.itemCount, 0);
         });
         plusBtn.addEventListener("click", () => {
             item.itemCount++;
             renderCartItems();
-            cartCount.innerText=cartItems.reduce((sum,i)=>sum+i.itemCount, 0);
+            cartCount.innerText = cartItems.reduce((sum, i) => sum + i.itemCount, 0);
         });
         minusBtn.addEventListener("click", () => {
             if (item.itemCount === 0) return;
             item.itemCount--;
             renderCartItems();
-            cartCount.innerText=cartItems.reduce((sum,i)=>sum+i.itemCount, 0);
+            cartCount.innerText = cartItems.reduce((sum, i) => sum + i.itemCount, 0);
         })
     });
     const total = cartItems.reduce((total, i) => total + i.price * i.itemCount, 0);
-        const totalDiv = document.createElement("div");
-        totalDiv.className = "font-blod text-sm";
-        totalDiv.innerText = `Total: ${total.toFixed(2)}`;
-        cartContainer.appendChild(totalDiv);
+    const totalDiv = document.createElement("div");
+    totalDiv.className = "font-bold text-sm";
+    totalDiv.innerText = `Total: ${total.toFixed(2)}`;
+    cartContainer.appendChild(totalDiv);
 }
 cartBtn.addEventListener("click", (e) => {
     e.stopPropagation();
@@ -285,7 +281,6 @@ document.addEventListener("click", () => {
 cartContainer.addEventListener("click", (e) => {
     e.stopPropagation();
 });
-renderCartItems();
 const manageSpinner = (status) => {
     if (status) {
         document.getElementById("main").classList.add("hidden");
@@ -296,9 +291,7 @@ const manageSpinner = (status) => {
         document.getElementById("footer").classList.remove("hidden");
         document.getElementById("spinner").classList.add("hidden");
     }
-}
+};
+renderCartItems();
 catagoryProducts();
 loadAllProducts();
-allBtn.addEventListener("click", () => {
-    loadAllProducts();
-})
