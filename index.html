@@ -22,7 +22,7 @@
 </head>
 
 <body>
-    <header class="">
+    <header >
         <div class="navbar bg-base-100 shadow-sm x_padding fixed top-0 z-50">
             <div class="navbar-start">
                 <span class="text-xl text-[#442dec] font-semibold">SwiftCart</span>
@@ -46,7 +46,7 @@
                             class="fa-solid fa-cart-arrow-down text-base lg:text-lg"></i>
                     </button>
                     <div id="cart_container"
-                        class="absolute right-0 mt-2 w-80 p-4 border rounded shadow-lg bg-gray-50 z-50 overflow-y-auto max-h-96 text-xs hidden">
+                        class="absolute right-0 bg-blue-100 mt-2 w-80 p-4 border rounded shadow-lg z-50 overflow-y-auto max-h-96 text-xs hidden">
                     </div>
                 </div>
                 <div class="dropdown">
@@ -81,7 +81,7 @@
             <!-- home -->
             <section id="home_section">
                 <!-- hero section -->
-                <section class=" w-full min-h-[500px] bg-cover bg-center relative x_padding flex items-center"
+                <section class=" w-full min-h-[600px] bg-cover bg-center relative x_padding flex items-center"
                     style="background-image: url('./Assets/banner-image.png');">
                     <!-- transparent div -->
                     <div class="absolute inset-0 bg-gradient-to-r from-[#191f2d] to-transparent"></div>
@@ -90,9 +90,7 @@
                         class="relative h-full text-white flex flex-col items-start justify-start w-full sm:w-11/12 md:w-3/4 lg:w-1/2">
                         <div class="space-y-6">
                             <h1 class="text-2xl sm:text-3xl lg:text-4xl font-bold">Best Collection For You</h1>
-                            <p>Discover the latest trends in fashion, electronics and more. Shop with confidence and style
-                                at
-                                SwiftCart.</p>
+                            <p>Discover the latest trends in fashion, electronics and more. Shop with confidence and style at SwiftCart.</p>
                             <button class="btn btn-primary">Shop now</button>
                         </div>
                     </div>
@@ -179,7 +177,7 @@
                         class="btn rounded-full border-2 border-gray-300 bg-white hover:bg-[#442dec] hover:text-white text-gray-500">
                         Women's Clothing</div>
                 </div>
-                <div id="card_container" class="grid md:grid-cols-2 xl:grid-cols-4 gap-5">
+                <div id="card_container" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-5">
                 </div>
             </section>
     
@@ -407,9 +405,6 @@
             </div>
         </div>
     </dialog>
-
-
     <script src="script/app.js"></script>
 </body>
-
 </html>

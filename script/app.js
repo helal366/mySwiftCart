@@ -1,4 +1,4 @@
-let cartItems = [];
+let cartItems =JSON.parse(localStorage.getItem("cart")) || [];
 const cardContainer = document.getElementById("card_container");
 const allBtn = document.getElementById("all_products");
 const liContainer = document.querySelectorAll(".li_container");
@@ -17,6 +17,10 @@ const aboutLink = document.querySelectorAll(".about_link");
 const contactLink = document.querySelectorAll(".contact_link");
 
 const sections = [productsSection, homeSection, aboutSection, contactSection];
+const saveCart=()=>{
+    localStorage.setItem("cart", JSON.stringify(cartItems));
+    cartCount.innerText = cartItems.reduce((sum, i) => sum + i.itemCount, 0);
+}
 const showSection = (section) => {
     sections.forEach(sec => sec.classList.add("hidden"));
     section.classList.remove("hidden");
@@ -48,8 +52,8 @@ const loadAllProducts = async () => {
     const url = "https://fakestoreapi.com/products";
     const res = await fetch(url);
     const data = await res.json();
-    displayAllProducts(data);
     trendingCards(data);
+    displayAllProducts(data);
     manageSpinner(false);
 }
 const trendingCards = async (products) => {
@@ -152,13 +156,10 @@ const updateCartItemsUpdateCartCount = (product) => {
     } else {
         cartItems.push({ ...product, itemCount: 1 })
     }
-
-    const totalCount = cartItems.reduce((sum, i) => sum + i.itemCount, 0);
-    cartCount.innerText = "";
-    cartCount.innerText = totalCount;
     if (!cartContainer.classList.contains("hidden")) {
         renderCartItems();
     }
+    saveCart();
 }
 const catagoryProducts = async () => {
     const catagoryContainer = document.getElementById("catagory_container");
@@ -190,7 +191,7 @@ const renderCartItems = () => {
     cartContainer.innerHTML = "";
     if (cartItems.length === 0) {
         cartContainer.innerHTML = `
-                <p class="text-center text-gray-700 ">Your cart is empty.</p>
+                <p class="text-center text-gray-700">Your cart is empty.</p>
             `;
         return;
     }
@@ -230,18 +231,18 @@ const renderCartItems = () => {
         deleteBtn.addEventListener("click", () => {
             cartItems = cartItems.filter(i => i.id !== item.id);
             renderCartItems();
-            cartCount.innerText = cartItems.reduce((sum, i) => sum + i.itemCount, 0);
+            saveCart();
         });
         plusBtn.addEventListener("click", () => {
             item.itemCount++;
             renderCartItems();
-            cartCount.innerText = cartItems.reduce((sum, i) => sum + i.itemCount, 0);
+            saveCart();
         });
         minusBtn.addEventListener("click", () => {
             if (item.itemCount === 0) return;
             item.itemCount--;
             renderCartItems();
-            cartCount.innerText = cartItems.reduce((sum, i) => sum + i.itemCount, 0);
+            saveCart();
         })
     });
     const total = cartItems.reduce((total, i) => total + i.price * i.itemCount, 0);
@@ -272,6 +273,8 @@ const manageSpinner=(status)=>{
         document.getElementById("footer").classList.remove("hidden");
     }
 }
+saveCart();
 renderCartItems();
+
 catagoryProducts();
 loadAllProducts();

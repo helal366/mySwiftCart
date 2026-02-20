@@ -22,12 +22,12 @@ ul li{
 }
 .active{
   background-color: #e8e4e4;
-  color: #442dec;
+  color: var( --primary-color);
   border-radius: 5px;
   transition: all 0.3s ease;
 }
 .active2{
-  background-color: #442dec;
+  background-color: var( --primary-color);
   color: white;
 }
 .x_padding {
